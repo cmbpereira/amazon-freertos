@@ -292,7 +292,8 @@ int32_t iot_uart_ioctl(IotUARTHandle_t const pxUartPeripheral, IotUARTIoctlReque
         return IOT_UART_SUCCESS;
     } else if (xUartRequest == eGetRxNoOfbytes) {
         size_t *rx_bytes_read = (size_t *)pvBuffer;
-        *rx_bytes_read = uart_ctx->async_bytes_read;
+        //*rx_bytes_read = uart_ctx->async_bytes_read;
+        uart_get_buffered_data_len(uart_ctx->uart_port_num,rx_bytes_read);
         return IOT_UART_SUCCESS;
     }
     if (!iot_uart_handler->wr_op_in_progress && !iot_uart_handler->rd_op_in_progress) {
