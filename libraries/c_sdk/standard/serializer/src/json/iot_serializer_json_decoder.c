@@ -229,19 +229,23 @@ static void parseContainer( const char * pBuffer,
 
 /*-----------------------------------------------------------*/
 
-static int64_t parseNumber( const char * pBuffer,
+static double parseNumber( const char * pBuffer,
                             const size_t bufLength,
-                            size_t * pOffset )
+                            size_t * pOffset ,bool * is_float )
 {
     size_t offset = *pOffset;
-    int64_t val = atoi( pBuffer + offset );
+    double  val = atof( pBuffer + offset );
+    *is_float = false;
 
     /*Skip -, + or first digit */
     offset++;
 
     for( ; offset < bufLength; offset++ )
     {
-        if( ( pBuffer[ offset ] < '0' ) ||
+        if(pBuffer[ offset ]=='.'){
+            *is_float = true;
+        }
+        else if( ( pBuffer[ offset ] < '0' ) ||
             ( pBuffer[ offset ] > '9' ) )
         {
             break;
@@ -322,12 +326,19 @@ static IotSerializerError_t parseTokenValue( const char * pBuffer,
 
         case IOT_SERIALIZER_SCALAR_SIGNED_INT:
            {
-               int64_t val = parseNumber( pBuffer, bufLength, pOffset );
+               bool is_float;
+               double val = parseNumber( pBuffer, bufLength, pOffset, &is_float );
 
                if( pValue )
                {
-                   pValue->type = tokenType;
-                   pValue->u.value.u.signedInt = val;
+                   if(is_float==false){
+                    pValue->type = tokenType;
+                    pValue->u.value.u.signedInt = (int64_t)val;
+                   }
+                   else{
+                     pValue->type = IOT_SERIALIZER_SCALAR_FLOAT;
+                    pValue->u.value.u.floatValue = (float)val;
+                   }
                }
 
                break;

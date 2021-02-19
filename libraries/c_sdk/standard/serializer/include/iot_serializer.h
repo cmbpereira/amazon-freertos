@@ -156,6 +156,12 @@
 #define IotSerializer_ScalarSignedInt( signedIntValue )                                                                        \
     ( IotSerializerScalarData_t ) { .value = { .u.signedInt = ( signedIntValue ) }, .type = IOT_SERIALIZER_SCALAR_SIGNED_INT } \
 
+#define IotSerializer_ScalarFloat( _floatValue )                                                                        \
+    ( IotSerializerScalarData_t ) { .value = { .u.floatValue = ( _floatValue ) }, .type = IOT_SERIALIZER_SCALAR_FLOAT } \
+
+#define IotSerializer_ScalarBoolean( boolValue )                                                                        \
+    ( IotSerializerScalarData_t ) { .value = { .u.booleanValue = ( boolValue ) }, .type = IOT_SERIALIZER_SCALAR_BOOL } \
+
 #define IotSerializer_ScalarTextString( pTextStringValue )                                                                                                                                          \
     ( IotSerializerScalarData_t ) { .value = { .u.string.pString = ( ( uint8_t * ) pTextStringValue ), .u.string.length = strlen( pTextStringValue ) }, .type = IOT_SERIALIZER_SCALAR_TEXT_STRING } \
 
@@ -192,6 +198,7 @@ typedef enum
     IOT_SERIALIZER_SCALAR_NULL,
     IOT_SERIALIZER_SCALAR_BOOL,
     IOT_SERIALIZER_SCALAR_SIGNED_INT,
+    IOT_SERIALIZER_SCALAR_FLOAT,
     IOT_SERIALIZER_SCALAR_TEXT_STRING,
     IOT_SERIALIZER_SCALAR_BYTE_STRING,
     /* below is container */
@@ -212,6 +219,7 @@ typedef struct IotSerializerScalarValue
             size_t length;
         } string;
         bool booleanValue;
+        float floatValue;
     } u;
 } IotSerializerScalarValue_t;
 

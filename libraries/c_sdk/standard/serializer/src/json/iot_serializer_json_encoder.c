@@ -313,6 +313,10 @@ static size_t _getSerializedLength( _jsonContainer_t * pContainer,
         case IOT_SERIALIZER_SCALAR_SIGNED_INT:
             length = _jsonIntegerLength( pScalarData->value.u.signedInt );
             break;
+        
+        case IOT_SERIALIZER_SCALAR_FLOAT:
+            length = _jsonIntegerLength( pScalarData->value.u.floatValue );
+            break;
 
         case IOT_SERIALIZER_SCALAR_BOOL:
             length = _jsonBoolLength( pScalarData->value.u.booleanValue );
@@ -409,6 +413,17 @@ static void _appendInteger( _jsonContainer_t * pContainer,
 
 /*-----------------------------------------------------------*/
 
+static void _appendFloat( _jsonContainer_t * pContainer,
+                            double floatValue )
+{
+    size_t len = snprintf( ( char * ) _jsonContainerPointer( pContainer ), pContainer->remainingLength, "%f", floatValue );
+
+    pContainer->offset += len;
+}
+
+
+/*-----------------------------------------------------------*/
+
 static void _appendBoolean( _jsonContainer_t * pContainer,
                             bool value )
 {
@@ -455,6 +470,10 @@ static void _appendData( _jsonContainer_t * pContainer,
 
         case IOT_SERIALIZER_SCALAR_SIGNED_INT:
             _appendInteger( pContainer, pScalarData->value.u.signedInt );
+            break;
+        
+        case IOT_SERIALIZER_SCALAR_FLOAT:
+            _appendFloat( pContainer, pScalarData->value.u.floatValue );
             break;
 
         case IOT_SERIALIZER_SCALAR_BOOL:
