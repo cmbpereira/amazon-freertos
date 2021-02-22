@@ -58,7 +58,7 @@ struct esp_spi_pin_config {
     /* UART 1: this ACK team's preference */  \
     { GPIO_NUM_19, GPIO_NUM_22 }, \
     /* UART 2 */                  \
-    { GPIO_NUM_17, GPIO_NUM_16 }, \
+    { GPIO_NUM_27, GPIO_NUM_18 }, \
 }
 
 /* Configuration to be assigned internally for I2C to pin mappings */

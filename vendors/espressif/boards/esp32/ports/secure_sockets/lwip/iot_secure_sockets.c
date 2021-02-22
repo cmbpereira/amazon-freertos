@@ -390,7 +390,7 @@ int32_t SOCKETS_Connect( Socket_t xSocket,
 
             if( pdFREERTOS_ERRNO_NONE != status )
             {
-                configPRINTF( ( "TLS_Init fail\n" ) );
+                configPRINTF( ( "TLS_Init fail %x\n", status ));
                 return SOCKETS_SOCKET_ERROR;
             }
 

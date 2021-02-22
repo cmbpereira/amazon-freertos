@@ -710,12 +710,13 @@ CK_RV xProvisionCertificate( CK_SESSION_HANDLE xSession,
     /* Create an object using the encoded client certificate. */
     if( xResult == CKR_OK )
     {
-        configPRINTF( ( "Write certificate...\r\n" ) );
+        
 
         xResult = pxFunctionList->C_CreateObject( xSession,
                                                   ( CK_ATTRIBUTE_PTR ) &xCertificateTemplate,
                                                   sizeof( xCertificateTemplate ) / sizeof( CK_ATTRIBUTE ),
                                                   pxObjectHandle );
+        configPRINTF( ( "Write certificate... %d\r\n", xResult) );
     }
 
     if( pucDerObject != NULL )
@@ -1264,22 +1265,24 @@ CK_RV vAlternateKeyProvisioning( ProvisioningParams_t * xParams )
     CK_SESSION_HANDLE xSession = 0;
 
     xResult = C_GetFunctionList( &pxFunctionList );
-
+    configPRINTF(("C_GetFunctionList %d \n ",xResult));
     /* Initialize the PKCS Module */
     if( xResult == CKR_OK )
     {
         xResult = xInitializePkcs11Token();
+        configPRINTF(("xInitializePkcs11Token %d \n ",xResult));
     }
 
     if( xResult == CKR_OK )
     {
         xResult = xInitializePkcs11Session( &xSession );
+        configPRINTF(("xInitializePkcs11Session %d \n ",xResult));
     }
 
     if( xResult == CKR_OK )
     {
         xResult = xProvisionDevice( xSession, xParams );
-
+        configPRINTF(("xProvisionDevice %d \n ",xResult));
         pxFunctionList->C_CloseSession( xSession );
     }
 
