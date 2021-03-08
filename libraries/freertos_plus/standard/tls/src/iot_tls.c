@@ -559,7 +559,7 @@ static int prvInitializeClientCredential( TLSContext_t * pxCtx )
                                                 sizeof( pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ) - 1,
                                                 CKO_PRIVATE_KEY,
                                                 &pxCtx->xP11PrivateKey );
-    }
+   }
 
     if( ( CKR_OK == xResult ) && ( pxCtx->xP11PrivateKey == CK_INVALID_HANDLE ) )
     {
@@ -615,11 +615,11 @@ static int prvInitializeClientCredential( TLSContext_t * pxCtx )
                                                  pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
                                                  CKO_CERTIFICATE,
                                                  &pxCtx->xMbedX509Cli );
-    }
+ }
 
     /* Add a Just-in-Time Registration (JITR) device issuer certificate, if
      * present, to the TLS context handle. */
-    if( xResult == CKR_OK )
+    if( false)//xResult == CKR_OK )
     {
         /* Prioritize a statically defined certificate over one in storage. */
         if( ( NULL != pcJitrCertificate ) &&
@@ -636,7 +636,7 @@ static int prvInitializeClientCredential( TLSContext_t * pxCtx )
                                                      pkcs11configLABEL_JITP_CERTIFICATE,
                                                      CKO_CERTIFICATE,
                                                      &pxCtx->xMbedX509Cli );
-
+            
             /* It is optional to have a JITR certificate in storage. */
             if( CKR_OBJECT_HANDLE_INVALID == xResult )
             {
@@ -881,7 +881,7 @@ BaseType_t TLS_Connect( void * pvContext )
 
         /* Configure the SSL context for the device credentials. */
         xResult = prvInitializeClientCredential( pxCtx );
-    }
+  }
 
     if( ( 0 == xResult ) && ( NULL != pxCtx->ppcAlpnProtocols ) )
     {
@@ -944,8 +944,8 @@ BaseType_t TLS_Connect( void * pvContext )
                  * a context that failed the handshake. */
                 prvFreeContext( pxCtx );
                 TLS_PRINT( ( "ERROR: Handshake failed with error code %s : %s \r\n",
-                             mbedtlsHighLevelCodeOrDefault( xResult ),
-                             mbedtlsLowLevelCodeOrDefault( xResult ) ) );
+                                 mbedtlsHighLevelCodeOrDefault( xResult ),
+                                 mbedtlsLowLevelCodeOrDefault( xResult ) ) );
                 break;
             }
         }

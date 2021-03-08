@@ -35,6 +35,7 @@
     extern const atcacert_def_t g_cert_def_1_signer;
     extern const atcacert_def_t g_cert_def_2_device;
     extern const atcacert_def_t g_cert_def_3_test;
+    extern const atcacert_def_t g_tngtls_cert_def_3_device;
 
     #ifdef __cplusplus
         }

@@ -342,8 +342,8 @@ CK_RV pkcs11_config_cert( pkcs11_lib_ctx_ptr pLibCtx,
         pkcs11_config_init_cert( pObject, pLabel->pValue, pLabel->ulValueLen );
         pObject->slot = 10;
         pObject->class_type = CK_CERTIFICATE_CATEGORY_TOKEN_USER;
-        pObject->size = g_cert_def_2_device.cert_template_size;
-        pObject->data = &g_cert_def_2_device;
+        pObject->size = g_tngtls_cert_def_3_device.cert_template_size;
+        pObject->data = &g_tngtls_cert_def_3_device;
         #ifdef FREERTOS_ENABLE_UNIT_TESTS
             pObject->flags = PKCS11_OBJECT_FLAG_DESTROYABLE;
         #endif
