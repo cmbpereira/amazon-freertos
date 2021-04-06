@@ -153,7 +153,7 @@
 
 /* Set to 1 to prepend each log message with a message number, the task name,
  * and a time stamp. */
-#define configLOGGING_INCLUDE_TIME_AND_TASK_NAME    1
+#define configLOGGING_INCLUDE_TIME_AND_TASK_NAME    0
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 			0
